@@ -1,26 +1,22 @@
-<h2>Listagem das cervejas</h2>
+<h2>Listagem das Cervejas</h2>
 
-<p class="msg">
-  {{ msg }}
-</p>
+<!-- <pre>{{beers | json}}</pre> -->
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Remove</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr data-ng-repeat='beer in beers'>
-      <td>
-        <a href="#/beers/{{ beer._id }}">{{ beer.name }}</a>
-      </td>
-      <td>{{ beer.price }}</td>
-      <td>
-        <a data-ng-click="remove(beer)">X</a>
-      </td>
-    </tr>
-  </tbody>
+<table class="table">
+   <thead>
+     <tr>
+       <th data-ng-click='ordenar("name")'>Nome</th>
+       <th data-ng-click='ordenar("price")'>Preço</th>
+       <th data-ng-click='ordenar("alcohol")'>Alcohol</th>
+       <th>Ações</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr data-ng-repeat='beer in beers | orderBy:predicate:reverse' >
+       <td>{{ beer.name }} </td>
+       <td>{{ beer.price | currency:'R$ ' }}</td>
+       <td>{{ beer.alcohol }} </td>
+       <td><a class="btn btn-info" href="#/beers/{{ beer._id }}">Abrir</a> <a class="btn btn-warning" data-ng-click="remove(beer)">Remover</a></td>
+     </tr>
+   </tbody>
 </table>

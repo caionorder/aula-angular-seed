@@ -1,9 +1,5 @@
 /* app css stylesheet */
 
-body {
-  width: 600px;
-  margin: 0 auto;
-}
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
@@ -32,21 +28,3 @@ body {
   content: "";
   padding: 0;
 }
-
-table tr td,
-table tr th
-{
-  border: 1px solid #000;
-  border-collapse: collapse;
-  padding: 1em;
-}
-table tr th {
-  border: 1px solid #fff;
-  border-bottom: 1px solid #000;
-}
-
-.form-label-text {
-  width: 100px;
-  display: inline-block;
-}
-

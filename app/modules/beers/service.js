@@ -1,26 +1,35 @@
-'use strict';
+(function(){
 
-angular.module('myApp.Beers.Service', [])
-.service('BeerService', BeerService);
+  'use strict';
 
-// Service
-function BeerService($http) {
-  var httpRequest = {
-        url: 'http://localhost:3000/api/beers'
-      , method: 'GET'
-      }
-    ;
+  angular.module('BeerServiceModule', [])
+  .service('BeerService', BeerService)
+  ;
 
-  this.list = function(){
-    return $http(httpRequest);
-  }
+  function BeerService($http) {
+    var urlBase = '//localhost:3000/beers';
 
-};
+    this.items = [];
+    this.find = function() {
+      return $http.get(urlBase);
+    };
 
-// Injeção de dependências
-BeerListController.$inject = ['$http'];
+    this.get = function(id) {
+      return $http.get(urlBase + '/' + id);
+    };
 
+    this.create = function(data) {
+        return $http.post(urlBase, data);
+    };
 
+    this.update = function(data) {
+        return $http.put(urlBase + '/' + data._id, data);
+    };
 
+    this.remove = function(data) {
+        return $http.delete(urlBase + '/' + data._id, data);
+    };
+  };
+  BeerService.$inject = ['$http'];
 
-
+})();

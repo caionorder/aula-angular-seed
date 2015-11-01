@@ -11,7 +11,7 @@ angular.module('myApp.Beers.Controllers', [])
 // Service
 function BeerService($http) {
   var httpRequest = {
-        url: 'http://localhost:3000/api/beers'
+        url: '//127.0.0.1:3000/beers'
       , method: 'GET'
       }
     ;
@@ -22,7 +22,7 @@ function BeerService($http) {
 
   this.remove = function(beer){
     var httpRequest = {
-          url: 'http://localhost:3000/api/beers/' + beer._id
+          url: 'http://127.0.0.1:3000/beers/' + beer._id
         , method: 'DELETE'
         }
       ;
@@ -31,7 +31,7 @@ function BeerService($http) {
 
   this.get = function(id){
     var httpRequest = {
-          url: 'http://localhost:3000/api/beers/' + id
+          url: 'http://127.0.0.1:3000/beers/' + id
         , method: 'GET'
         }
       ;
@@ -40,7 +40,7 @@ function BeerService($http) {
 
   this.create = function(beer) {
     var httpRequest = {
-          url: 'http://localhost:3000/api/beers'
+          url: 'http://127.0.0.1:3000/beers'
         , method: 'POST'
         , data: beer
         }
@@ -50,7 +50,7 @@ function BeerService($http) {
 
   this.edit = function() {
     var httpRequest = {
-      url: 'http://localhost:3000/api/beers/' + $routeParams.id
+      url: 'http://127.0.0.1:3000/beers/' + $routeParams.id
     , method: 'PUT'
     }
     return $http(httpRequest);
@@ -63,7 +63,7 @@ BeerListController.$inject = ['$http'];
 // Controllers
 function BeerListController($scope, BeerService) {
   var httpRequest = {
-        url: 'http://localhost:3000/api/beers'
+        url: 'http://127.0.0.1:3000/beers'
       , method: 'GET'
       }
     ;
@@ -104,7 +104,7 @@ function BeerListController($scope, BeerService) {
 function BeerGetController($scope, $http, $routeParams) {
 
   var httpRequest = {
-        url: 'http://localhost:3000/api/beers/' + $routeParams.id
+        url: 'http://127.0.0.1:3000/beers/' + $routeParams.id
       , method: 'GET'
       }
     ;
@@ -123,12 +123,20 @@ function BeerGetController($scope, $http, $routeParams) {
 };
 
 function BeerCreateController($scope, $http) {
+
   $scope.create = function(beer) {
+
+    var httpRequest = {
+        url: '//127.0.0.1:3000/beers/'
+      , method: 'POST'
+      , data: beer
+      }
+    ;
 
     $http(httpRequest)
     .success(function(data) {
       console.log('SUCESSO: ', data);
-      // $scope.beers = data;
+      $scope.beers = data;
       $scope.msg = 'Cadastro da cerveja feito com sucesso.';
     })
     .error(function(err) {
@@ -140,7 +148,11 @@ function BeerCreateController($scope, $http) {
 };
 
 function BeerEditController($scope, $http, $routeParams) {
-
+  var httpRequest = {
+        url: 'http://127.0.0.1:3000/beers/' + $routeParams.id
+      , method: 'GET'
+      }
+    ;
   $http(httpRequest)
   .success(function(data) {
     console.log('SUCESSO: ', data);
@@ -155,7 +167,7 @@ function BeerEditController($scope, $http, $routeParams) {
 
   $scope.save = function(beer) {
     var httpRequest = {
-          url: 'http://localhost:3000/api/beers/' + $routeParams.id
+          url: 'http://127.0.0.1:3000/beers/' + $routeParams.id
         , method: 'PUT'
         , data: beer
         }
@@ -175,12 +187,7 @@ function BeerEditController($scope, $http, $routeParams) {
 };
 
 // Injeção de dependências
-BeerListController.$inject = ['$scope', 'BeerService'];
+BeerListController.$inject   = ['$scope', 'BeerService'];
 BeerCreateController.$inject = ['$scope', '$http'];
-BeerGetController.$inject = ['$scope', '$http', '$routeParams'];
-BeerEditController.$inject = ['$scope', '$http', '$routeParams'];
-
-
-
-
-
+BeerGetController.$inject    = ['$scope', '$http', '$routeParams'];
+BeerEditController.$inject   = ['$scope', '$http', '$routeParams'];
